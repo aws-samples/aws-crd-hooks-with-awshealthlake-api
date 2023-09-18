@@ -1,0 +1,107 @@
+{
+  "library": {
+    "annotation": [
+      {
+        "translatorOptions": "",
+        "type": "CqlToElmInfo"
+      }
+    ],
+    "identifier": {
+      "id": "LibraryOne",
+      "version": "1.0.0"
+    },
+    "schemaIdentifier": {
+      "id": "urn:hl7-org:elm",
+      "version": "r1"
+    },
+    "usings": {
+      "def": [
+        {
+          "localIdentifier": "System",
+          "uri": "urn:hl7-org:elm-types:r1"
+        },
+        {
+          "localIdentifier": "FHIR",
+          "uri": "http://hl7.org/fhir",
+          "version": "4.0.1"
+        }
+      ]
+    },
+    "includes": {
+      "def": [
+        {
+          "localIdentifier": "FHIRHelpers",
+          "path": "FHIRHelpers",
+          "version": "4.0.1"
+        }
+      ]
+    },
+    "codeSystems": {
+      "def": [
+        {
+          "name": "SNOMEDCT",
+          "id": "http://snomed.info/sct",
+          "accessLevel": "Public"
+        }
+      ]
+    },
+    "codes": {
+      "def": [
+        {
+          "name": "Chronic sinusitis (disorder)",
+          "id": "40055000",
+          "display": "Chronic sinusitis (disorder)",
+          "accessLevel": "Public",
+          "codeSystem": {
+            "name": "SNOMEDCT"
+          }
+        }
+      ]
+    },
+    "contexts": {
+      "def": [
+        {
+          "name": "Patient"
+        }
+      ]
+    },
+    "statements": {
+      "def": [
+        {
+          "name": "Patient",
+          "context": "Patient",
+          "expression": {
+            "type": "SingletonFrom",
+            "operand": {
+              "dataType": "{http://hl7.org/fhir}Patient",
+              "templateId": "http://hl7.org/fhir/StructureDefinition/Patient",
+              "type": "Retrieve"
+            }
+          }
+        },
+        {
+          "name": "hassinusitis",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "Exists",
+            "operand": {
+              "dataType": "{http://hl7.org/fhir}Condition",
+              "templateId": "http://hl7.org/fhir/StructureDefinition/Condition",
+              "codeProperty": "code",
+              "codeComparator": "~",
+              "type": "Retrieve",
+              "codes": {
+                "type": "ToList",
+                "operand": {
+                  "name": "Chronic sinusitis (disorder)",
+                  "type": "CodeRef"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

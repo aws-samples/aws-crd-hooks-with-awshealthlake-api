@@ -1,0 +1,123 @@
+{
+  "library": {
+    "annotation": [
+      {
+        "translatorOptions": "",
+        "type": "CqlToElmInfo"
+      }
+    ],
+    "identifier": {
+      "id": "AmoxicillinPriorAuthRule",
+      "version": "0.1.0"
+    },
+    "schemaIdentifier": {
+      "id": "urn:hl7-org:elm",
+      "version": "r1"
+    },
+    "usings": {
+      "def": [
+        {
+          "localIdentifier": "System",
+          "uri": "urn:hl7-org:elm-types:r1"
+        },
+        {
+          "localIdentifier": "FHIR",
+          "uri": "http://hl7.org/fhir",
+          "version": "4.0.0"
+        }
+      ]
+    },
+    "includes": {
+      "def": [
+        {
+          "localIdentifier": "FHIRHelpers",
+          "path": "FHIRHelpers",
+          "version": "4.0.0"
+        }
+      ]
+    },
+    "codeSystems": {
+      "def": [
+        {
+          "name": "LOINC",
+          "id": "http://loinc.org",
+          "accessLevel": "Public"
+        }
+      ]
+    },
+    "contexts": {
+      "def": [
+        {
+          "name": "Patient"
+        }
+      ]
+    },
+    "statements": {
+      "def": [
+        {
+          "name": "Patient",
+          "context": "Patient",
+          "expression": {
+            "type": "SingletonFrom",
+            "operand": {
+              "dataType": "{http://hl7.org/fhir}Patient",
+              "type": "Retrieve"
+            }
+          }
+        },
+        {
+          "name": "PRIORAUTH_GRANTED",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "First",
+            "source": {
+              "type": "Query",
+              "source": [
+                {
+                  "alias": "C",
+                  "expression": {
+                    "dataType": "{http://hl7.org/fhir}Claim",
+                    "type": "Retrieve"
+                  }
+                }
+              ],
+              "relationship": [],
+              "return": {
+                "expression": {
+                  "type": "Equal",
+                  "operand": [
+                    {
+                      "path": "value",
+                      "type": "Property",
+                      "source": {
+                        "path": "status",
+                        "scope": "C",
+                        "type": "Property"
+                      }
+                    },
+                    {
+                      "valueType": "{urn:hl7-org:elm-types:r1}String",
+                      "value": "active",
+                      "type": "Literal"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "PRIORAUTH_PENDED",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "valueType": "{urn:hl7-org:elm-types:r1}Boolean",
+            "value": "true",
+            "type": "Literal"
+          }
+        }
+      ]
+    }
+  }
+}
