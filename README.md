@@ -5,7 +5,7 @@ CRD is a serverless workflow that accelerates clinical decision processes using 
 
 ## Design
 
-![ ](docs/images/CRD with CDS Hooks.png)
+![ ](docs/images/CRD%20with%20CDS%20Hooks.png)
 
 The workflow steps:
 
