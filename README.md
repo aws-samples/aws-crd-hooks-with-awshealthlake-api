@@ -29,8 +29,8 @@ The workflow steps:
 1. Clone the repository and navigate to the solution directory:
 
 ```sh
-git clone git@ssh.gitlab.aws.dev:manishpl/crd-hooks-with-awshealthlake.git
-cd aws-crd-with-awshealthlake/
+git clone https://github.com/aws-samples/aws-crd-hooks-with-awshealthlake-api
+cd aws-crd-hooks-with-awshealthlake-api/
 ```
 
 2. Build the application using following command:
